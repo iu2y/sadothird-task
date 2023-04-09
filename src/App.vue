@@ -1,26 +1,46 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoAdd from './components/TodoAdd.vue'
+import TodoList from './components/TodoList.vue'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
+    TodoAdd,
+    TodoList,
+  },
+  data() {
+    return {
+      todos: [{ isDone: false, text: 'ToDoの文字列' }],
+    }
+  },
+  methods: {
+    addTodo(newTodoText) {
+      if (!newTodoText) return alert('文字を入力してください')
+      this.todos.push({
+        isDone: false,
+        text: newTodoText,
+      })
+    },
+    clearDoneTodos() {
+      this.todos = this.todos.filter((todo) => !todo.isDone)
+    },
+  },
 }
 </script>
 
+
+<template>
+  <h1>My ToDo App</h1>
+  <TodoAdd @delete-done="clearDoneTodos" @add-todo="addTodo" />
+  <p v-if="todos.length === 0">ToDoがまだありません！</p>
+  <TodoList v-else :todos="todos" />
+</template>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  background-color: #eee;
+}
+
+.todo-done {
+  text-decoration: line-through;
 }
 </style>
