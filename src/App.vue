@@ -1,46 +1,16 @@
 <script>
-import TodoAdd from './components/TodoAdd.vue'
-import TodoList from './components/TodoList.vue'
 
-export default {
-  components: {
-    TodoAdd,
-    TodoList,
-  },
-  data() {
-    return {
-      todos: [{ isDone: false, text: 'ToDoの文字列' }],
-    }
-  },
-  methods: {
-    addTodo(newTodoText) {
-      if (!newTodoText) return alert('文字を入力してください')
-      this.todos.push({
-        isDone: false,
-        text: newTodoText,
-      })
-    },
-    clearDoneTodos() {
-      this.todos = this.todos.filter((todo) => !todo.isDone)
-    },
-  },
-}
 </script>
 
-
 <template>
+  <router-link to="/">Home</router-link> ・
+  <router-link to="/edit">Edit</router-link>
   <h1>My ToDo App</h1>
-  <TodoAdd @delete-done="clearDoneTodos" @add-todo="addTodo" />
-  <p v-if="todos.length === 0">ToDoがまだありません！</p>
-  <TodoList v-else :todos="todos" />
+  <router-view />
 </template>
 
 <style>
 body {
   background-color: #eee;
-}
-
-.todo-done {
-  text-decoration: line-through;
 }
 </style>

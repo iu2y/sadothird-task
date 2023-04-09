@@ -1,9 +1,19 @@
 <script>
+import MyButton from '../basics/MyButton.vue'
+
 export default {
+  components: {
+    MyButton,
+  },
   props: {
     todos: Array,
+  },
+  methods: {
+    openEditMode() {
+      this.$router.push('/edit')
     },
-  }
+  },
+}
 </script>
 
 <template>
@@ -13,6 +23,7 @@ export default {
         :class="{ 'todo-done': todo.isDone }"
         >{{ todo.text }}</span
       >
+      <MyButton @click="openEditMode(todo)">編集</MyButton>
     </li>
   </ul>
 </template>
